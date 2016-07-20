@@ -8,6 +8,9 @@ body {
 }
 
 // Structural styles
+br.clear {
+  clear: both;
+}
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -26,6 +29,10 @@ body {
   box-shadow: 0px 2px 4px #777;
 }
 
+.pagination span, .pagination a {
+  border-radius: 0px !important;
+}
+
 //Text styles
 h1, h2, h3, h4, h5, h6 {
   margin:0;
@@ -36,4 +43,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #1ABC9C;
   font-family: "pacificoregular", sans-serif;
   font-size: 28px;
+}
+
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+  background-color: #1ABC9C;
+  border-color: #1ABC9C;
 }
