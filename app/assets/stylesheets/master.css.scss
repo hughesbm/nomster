@@ -2,6 +2,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  background: url('/assets/symphony.png');
+  font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+}
+
 // Structural styles
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -10,9 +15,15 @@
   background: #fff;
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  margin-top:10px;
-  margin-bottom:15px;
-  padding:20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 20px;
+}
+
+.navbar.navbar-inverse {
+  background: url('/assets/footer_lodyas.png');
+  border-radius: 0px;
+  box-shadow: 0px 2px 4px #777;
 }
 
 //Text styles
