@@ -51,3 +51,6 @@ gem 'will_paginate-bootstrap'
 
 # Use Simple Forms
 gem 'simple_form'
+
+# Use Devise for user authentication
+gem 'devise', '>= 3.2.4'
