@@ -45,6 +45,9 @@ gem 'rails_12factor', group: :production
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
 
-## Gemfile for Rails 3+, Sinatra, and Merb
+# Gemfile for Rails 3+, Sinatra, and Merb
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+
+# Use Simple Forms
+gem 'simple_form'
