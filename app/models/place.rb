@@ -1,6 +1,8 @@
 class Place < ActiveRecord::Base
   belongs_to :user
-  validates :name, length: { minimum: 3, maximum: 50 }, presence: true
-  validates :address, length: { minimum: 10, maximum: 100 }, presence: true
-  validates :description, length: { minimum: 10, maximum: 500 }, presence: true
+  geocoded_by :address
+  after_validation :geocode
+  validates :name, presence: true, length: { minimum: 3, maximum: 50 }
+  validates :address, presence: true, length: { minimum: 10, maximum: 100 }
+  validates :description, presence: true, length: { minimum: 10, maximum: 500 }
 end
