@@ -8,4 +8,7 @@
   <% if @place.user.present? %>
     <small>Added by: <%= @place.user.email %></small>
   <% end %>
+  <div class="pull-right">
+    <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-info' %>
+  </div>
 </div>
