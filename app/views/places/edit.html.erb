@@ -13,6 +13,6 @@
     <%= f.input :description %>
     <br />
     <%= f.submit 'Update', class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', place_path, class: 'btn btn-default' %>
+    <%= link_to 'Cancel', place_path(@place), class: 'btn btn-default' %>
   <% end %>
 </div>
