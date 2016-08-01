@@ -60,3 +60,6 @@ gem 'geocoder', "1.3.4"
 
 # Figaro
 gem 'figaro', ">= 1.0.0"
+
+# CarrierWave photo uploader
+gem 'carrierwave'
