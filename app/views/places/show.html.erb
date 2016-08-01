@@ -38,21 +38,61 @@
     </div>
   <% end %>
 </div>
+
 <div class="booyah-box col-xs-10 col-xs-offset-1">
-  <h2 class="pull-left">Reviews</h2>
+  <h2 class="pull-left">Photos</h2>
   <% if current_user %>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
-      Add a Review
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#photoModal">
+      Add a Photo
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Add a Review</h4>
+            <h4 class="modal-title" id="photoModalLabel">Add a Photo</h4>
+          </div>
+          <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+            <div class="modal-body">
+              <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
+              <br />
+              <%= f.input :message %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit 'Submit Photo', class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+      <%= link_to 'Sign in to add Photos', new_user_session_path, class: 'btn btn-primary pull-right' %>
+  <% end %>
+  <br />
+  <% @place.photos.each do |photo| %>
+    <!-- photo goes here -->
+  <% end %>
+</div>
+
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <h2 class="pull-left">Reviews</h2>
+  <% if current_user %>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#reviewModal">
+      Add a Review
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myReviewLabel">Add a Review</h4>
           </div>
           <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
             <div class="modal-body">
@@ -89,7 +129,7 @@
     <p>
       No one has reviewed this place yet!
       <% if user_signed_in? %>
-      <a href="#myModal" data-toggle="modal">Add your own review.</a>
+      <a href="#reviewModal" data-toggle="modal">Add your own review.</a>
       <% else %>
         <%= link_to 'Sign in', new_user_session_path %> and add your own review.
       <% end %>
