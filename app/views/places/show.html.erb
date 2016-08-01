@@ -4,12 +4,8 @@
   <i><%= @place.address %></i>
   <br /><br />
   <p><%= @place.description %></p>
-  </br />
-  <% if @place.user.present? %>
-    <small>Added by: <%= @place.user.email %></small>
-  <% end %>
   <% if @place.latitude.present? && @place.longitude.present? %>
-    <br /><br />
+    </br />
     <script>
 
       function initMap() {
@@ -72,18 +68,31 @@
         </div>
       </div>
     </div>
+  <% else %>
+      <%= link_to 'Sign in to Review', new_user_session_path, class: 'btn btn-primary pull-right' %>
   <% end %>
   <br class="clear" />
   <hr />
-  <% @place.comments.each do |comment| %>
-    <div class="col-xs-12 col-sm-6">
-      <blockquote>
-        <% if comment.humanized_rating.present? %>
-          <b><%= comment.humanized_rating %></b> -
-        <% end %>
-        <%= comment.message %>
-        <small><%= @place.user.email %></small>
-      </blockquote>
-    </div>
+  <% if @place.comments.count > 0 %>
+    <% @place.comments.each do |comment| %>
+      <div class="col-xs-12 col-sm-6">
+        <blockquote>
+          <% if comment.humanized_rating.present? %>
+            <b><%= comment.humanized_rating %></b> -
+          <% end %>
+          <%= comment.message %>
+          <small><%= @place.user.email %></small>
+        </blockquote>
+      </div>
+    <% end %>
+  <% else %>
+    <p>
+      No one has reviewed this place yet!
+      <% if user_signed_in? %>
+      <a href="#myModal" data-toggle="modal">Add your own review.</a>
+      <% else %>
+        <%= link_to 'Sign in', new_user_session_path %> and add your own review.
+      <% end %>
+    </p>
   <% end %>
 </div>
