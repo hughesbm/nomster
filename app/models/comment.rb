@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :place
 
   validates :rating, presence: true
-  validates :message, presence: true
+  validates :message, presence: true, length: { minimum: 10, maximum: 500 }
 
   RATINGS = {
     'One Star'    => '1_star',
