@@ -129,7 +129,7 @@
     <p>
       No one has added a photo for this place yet!
       <% if user_signed_in? %>
-      <a href="#reviewModal" data-toggle="modal">Add your own photo.</a>
+      <a href="#photoModal" data-toggle="modal">Add your own photo.</a>
       <% else %>
         <%= link_to 'Sign in', new_user_session_path %> and add your own photo.
       <% end %>
