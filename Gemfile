@@ -63,3 +63,4 @@ gem 'figaro', ">= 1.0.0"
 
 # CarrierWave photo uploader
 gem 'carrierwave'
+gem 'fog'

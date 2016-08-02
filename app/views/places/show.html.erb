@@ -54,8 +54,9 @@
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2 class="pull-left">Photos</h2>
   <% if current_user %>
+  
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#photoModal">
+    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#photoModal">
       Add a Photo
     </button>
 
@@ -67,11 +68,11 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="photoModalLabel">Add a Photo</h4>
           </div>
-          <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+          <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
             <div class="modal-body">
-              <%= f.input :rating, as: :select, collection: Comment::RATINGS, error: false %>
+              <%= f.input :picture %>
               <br />
-              <%= f.input :message, error: false %>
+              <%= f.input :caption %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -81,20 +82,56 @@
         </div>
       </div>
     </div>
+
   <% else %>
       <%= link_to 'Sign in to add Photos', new_user_session_path, class: 'btn btn-primary pull-right' %>
   <% end %>
-  <br />
-  <% @place.photos.each do |photo| %>
-    <!-- photo goes here -->
-  <% end %>
+
+  <br class="clear" />
+  <hr />
+
+  <div class="row">
+    <% @place.photos.each do |photo| %>
+      <div class="col-xs-12 col-sm-6 col-md-3">
+
+        <!-- Button trigger modal -->
+        <div class="thumbnail">
+          <a data-toggle="modal" href="#photoModal<%= photo.id %>">
+            <%= image_tag photo.picture %>
+          </a>
+          <div class="caption">
+            <h5 class="text-center"><%= photo.caption %></h5>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="photoModal<%= photo.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="photoModalLabel<%= photo.id %>"><%= photo.caption %></h4>
+              </div>
+              <div class="modal-body">
+                <%= image_tag photo.picture, class:'modal-photo' %>
+                <br /><br />
+                <p>Photo added by <%= photo.user.email %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2 class="pull-left">Reviews</h2>
   <% if current_user %>
+
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#reviewModal">
+    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#reviewModal">
       Add a Review
     </button>
 
@@ -120,11 +157,14 @@
         </div>
       </div>
     </div>
+
   <% else %>
       <%= link_to 'Sign in to Review', new_user_session_path, class: 'btn btn-primary pull-right' %>
   <% end %>
+
   <br class="clear" />
   <hr />
+
   <% if @place.comments.count > 0 %>
     <% @place.comments.each do |comment| %>
       <div class="col-xs-12 col-sm-6">
