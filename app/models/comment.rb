@@ -2,6 +2,9 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :place
 
+  validates :rating, presence: true
+  validates :message, presence: true
+
   RATINGS = {
     'One Star'    => '1_star',
     'Two Stars'   => '2_stars',
