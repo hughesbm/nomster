@@ -98,7 +98,7 @@
           <!-- Button trigger modal -->
           <div class="thumbnail">
             <a data-toggle="modal" href="#photoModal<%= photo.id %>">
-              <%= image_tag photo.picture %>
+              <%= image_tag photo.picture_url(:thumb) %>
             </a>
             <div class="caption">
               <h5 class="text-center"><%= photo.caption %></h5>
