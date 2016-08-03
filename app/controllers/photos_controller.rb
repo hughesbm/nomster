@@ -10,6 +10,7 @@ class PhotosController < ApplicationController
     else
       redirect_to place_path(@place)
       flash[:error] = flash_error_message(@photo)
+    end
   end
 
   private
