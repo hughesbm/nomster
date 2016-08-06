@@ -1,3 +1,4 @@
 <p>Hi there!</p>
-<p>Someone has <b>added a comment</b> to your place on Nomster.</p>
+<p>Someone has <b>added a review</b> to <%= @place.name %> on Nomster. Check it out <%= link_to 'here', place_url(@place) %>, or at the URL below:</p>
+<p><%= place_url(@place) %></p>
 <p>Cheers,<br />Brent</p>
