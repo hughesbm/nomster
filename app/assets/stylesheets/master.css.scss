@@ -8,13 +8,6 @@ body {
 }
 
 // Structural styles
-br.clear {
-  clear: both;
-}
-
-.btn {
-  border-radius: 0px !important;
-}
 
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -28,52 +21,46 @@ br.clear {
   padding: 20px;
 }
 
-#map {
-  height: 300px;
+br.clear {
+  clear: both;
 }
 
-.navbar.navbar-inverse {
-  background: url('/assets/footer_lodyas.png');
-  border-radius: 0px;
-  box-shadow: 0px 2px 4px #777;
-}
-
-.pagination span, .pagination a {
+.btn {
   border-radius: 0px !important;
 }
+
+.carousel {
+  box-shadow: 0px 2px 6px #777;
+}
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      max-height: 550px;
+      width: 100%;
+  }
 
 .index-row div{
   margin: 10px 0;
 }
 
+#map {
+  height: 300px;
+}
+
+.navbar {
+  margin-bottom: 0px;
+  border-radius: 0px;
+  //box-shadow: 0px 2px 4px #777;
+}
+
+  .navbar.navbar-inverse {
+    background: url('/assets/footer_lodyas.png');
+  }
+
+.pagination span, .pagination a {
+  border-radius: 0px !important;
+}
+
 //Text styles
-h1, h2, h3, h4, h5, h6 {
-  margin:0;
-  padding:0;
-}
-
-.field_with_errors {
-  color: #ff3333;
-  background-color: #FFEEEE;
-  border: solid 1px #ff3333;
-  padding:8px;
-}
-
-.navbar-inverse .navbar-brand {
-  color: #1ABC9C;
-  font-family: "pacificoregular", sans-serif;
-  font-size: 28px;
-}
-
-.pagination > .active > a,
-.pagination > .active > a:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span,
-.pagination > .active > span:hover,
-.pagination > .active > span:focus {
-  background-color: #1ABC9C;
-  border-color: #1ABC9C;
-}
 
 blockquote {
   background: #f9f9f9;
@@ -101,18 +88,57 @@ blockquote {
     color: #1ABC9C;
   }
 
+.carousel-caption {
+  //font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 40px;
+  font-weight: 100;
+  background: rgba(0,0,0,0.5);
+  text-shadow: rgba(0,0,0,0.95) 2px 3px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.field_with_errors {
+  color: #ff3333;
+  background-color: #FFEEEE;
+  border: solid 1px #ff3333;
+  padding:8px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin:0;
+  padding:0;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #1ABC9C;
+  font-family: "pacificoregular", sans-serif;
+  font-size: 28px;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
+  background-color: #1ABC9C;
+  border-color: #1ABC9C;
+}
+
 //Image styles
 
-.thumbnail {
-  border: 0;
-  border-radius: 0;
-  padding: 0;
+.index-photo {
+  margin: 0;
 }
 
 .modal-photo {
   max-width: 100%;
 }
 
-.index-photo {
-  margin: 0;
+.thumbnail {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
 }
