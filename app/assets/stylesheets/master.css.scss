@@ -65,7 +65,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 28px;
 }
 
-.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span,
+.pagination > .active > span:hover,
+.pagination > .active > span:focus {
   background-color: #1ABC9C;
   border-color: #1ABC9C;
 }
@@ -78,18 +83,23 @@ blockquote {
   quotes: "\201C""\201D";
 }
 
-blockquote:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.1em;
-  vertical-align: -0.4em;
-}
+  blockquote:before {
+    color: #ccc;
+    //content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.1em;
+    vertical-align: -0.4em;
+  }
 
-blockquote p {
-  display: inline;
-}
+  blockquote p {
+    display: inline;
+  }
+
+  blockquote .glyphicon-star,
+  blockquote .glyphicon-star-empty {
+    color: #1ABC9C;
+  }
 
 //Image styles
 
