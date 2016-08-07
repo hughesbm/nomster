@@ -14,11 +14,8 @@
   </div>
 </div>
 <div class="booyah-box col-xs-10 col-xs-offset-1">
-  <h2 class="pull-left">Reviews</h2>
-
-  <br class="clear" />
+  <h2>My Reviews</h2>
   <hr />
-
   <% if @user.comments.present? %>
     <% @user.comments.each do |comment| %>
       <div class="col-xs-12 col-sm-6">
@@ -36,6 +33,46 @@
           <%= comment.message %>
         </blockquote>
       </div>
+    <% end %>
+  <% end %>
+</div>
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <h2>My Places</h2>
+  <hr />
+  <% if @user.places.present? %>
+    <% @user.places.each do |place| %>
+      <div class="row item-row">
+        <% if place.photos.present? %>
+          <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+            <a href="<%= place_path(place) %>">
+              <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail index-photo img-responsive" %>
+            </a>
+          </div>
+          <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+        <% else %>
+          <div class="col-xs-12">
+        <% end %>
+            <h1><%= link_to place.name, place_path(place) %></h1><br />
+            <i><%= place.address %></i><br /><br />
+            <p><%= place.description %></p>
+            <% if place.comments.present? %>
+                  <blockquote>
+                    <% if place.comments.last.rating.present? %>
+                      <% place.comments.last.rating.chr.to_i.times do %>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                      <% end %>
+                      <% (5 - place.comments.last.rating.chr.to_i).times do %>
+                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                      <% end %>
+                      <br />
+                    <% end %>
+                    <%= place.comments.last.message %>
+                    <small><%= place.comments.last.user.email %></small>
+                  </blockquote>
+            <% end %>
+          </div>
+      </div>
+      <hr />
     <% end %>
   <% end %>
 </div>
