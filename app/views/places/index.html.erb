@@ -45,9 +45,10 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
 <% @places.each do |place| %>
   <div class="booyah-box col-xs-10 col-xs-offset-1">
-    <div class="row index-row">
+    <div class="row item-row">
       <% if place.photos.present? %>
         <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
           <a href="<%= place_path(place) %>">

@@ -38,7 +38,7 @@ br.clear {
       width: 100%;
   }
 
-.index-row div{
+.item-row div{
   margin: 10px 0;
 }
 
@@ -89,6 +89,7 @@ blockquote {
   }
 
 .carousel-caption {
+  font-size: 40px;
   font-size: 2.75vw;
   font-weight: 100;
   background: rgba(0,0,0,0.5);
@@ -98,6 +99,10 @@ blockquote {
   left: 0;
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.email-heading {
+  font-size: calc( 18px + (30 - 18) * ( (100vw - 400px) / (1000 - 400) ) );
 }
 
 .field_with_errors {
@@ -126,6 +131,12 @@ h1, h2, h3, h4, h5, h6 {
 .pagination > .active > span:focus {
   background-color: #1ABC9C;
   border-color: #1ABC9C;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 //Image styles
