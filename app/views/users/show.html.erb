@@ -1,1 +1,7 @@
-<h1>User Dashboard for <%= current_user.email %></h1>
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <h1>User Profile for <%= @user.email %></h1>
+  <hr />
+  <h3>Member since <%= @user.created_at.strftime("%B %d, %Y") %></h3>
+  <h4><%= @user.comments.count %> reviews</h4>
+  <h4><%= @user.comments.where(rating: '5_stars').count %> five-star reviews</h4>
+</div>
