@@ -16,8 +16,13 @@
           <p><%= place.description %></p>
           <% if place.comments.present? %>
                 <blockquote>
-                  <% if place.comments.last.humanized_rating.present? %>
-                    <b><%= place.comments.last.humanized_rating %></b> -
+                  <% if place.comments.last.rating.present? %>
+                    <% place.comments.last.rating.chr.to_i.times do %>
+                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <% end %>
+                    <% (5 - place.comments.last.rating.chr.to_i).times do %>
+                      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <% end %> -
                   <% end %>
                   <%= place.comments.last.message %>
                   <small><%= place.comments.last.user.email %></small>
