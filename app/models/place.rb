@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:slugged, :finders]
+  friendly_id :name, use: [:slugged, :finders, :history]
 
   belongs_to :user
   has_many :comments
@@ -14,6 +14,6 @@ class Place < ActiveRecord::Base
   validates :description, presence: true, length: { minimum: 10, maximum: 500 }
 
   def should_generate_new_friendly_id?
-    new_record?
+    slug.blank? || name_changed?
   end
 end

@@ -19,20 +19,23 @@ class PlacesController < ApplicationController
   end
 
   def show
-    @place = Place.friendly.find(params[:id])
+    @place = Place.find(params[:id])
+    if request.path != place_path(@place)
+      redirect_to @place, status: :moved_permanently
+    end
     @comment = Comment.new
     @photo = Photo.new
   end
 
   def edit
-    @place = Place.friendly.find(params[:id])
+    @place = Place.find(params[:id])
     if @place.user != current_user
       return render text: 'You cannot edit a place submitted by another user.', status: :forbidden
     end
   end
 
   def update
-    @place = Place.friendly.find(params[:id])
+    @place = Place.find(params[:id])
     if @place.user != current_user
       return render text: 'You cannot edit a place submitted by another user.', status: :forbidden
     end
@@ -41,7 +44,7 @@ class PlacesController < ApplicationController
   end
 
   def destroy
-    @place = Place.friendly.find(params[:id])
+    @place = Place.find(params[:id])
     if @place.user != current_user
       return render text: 'You cannot delete a place submitted by another user.', status: :forbidden
     end
