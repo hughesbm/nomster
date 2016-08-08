@@ -61,7 +61,7 @@
       <% if place.photos.present? %>
         <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
           <a href="<%= place_path(place) %>">
-            <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail index-photo img-responsive" %>
+            <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail list-photo img-responsive" %>
           </a>
         </div>
         <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
