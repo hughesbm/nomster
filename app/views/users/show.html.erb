@@ -8,7 +8,7 @@
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
-      <h2 class="email-heading"><%= @user.email %></h2>
+      <h3 class="email-heading text-overflow"><%= @user.email %></h3>
       <br />
       <h4>Member since <%= @user.created_at.strftime("%B %d, %Y") %></h4>
       <br />
@@ -21,66 +21,15 @@
     </div>
   </div>
 </div>
+
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2>My Reviews</h2>
   <hr />
-  <% if @user.comments.present? %>
-    <% @user.comments.each do |comment| %>
-      <div class="col-xs-12 col-sm-6">
-        <h4><%= link_to comment.place.name, place_path(comment.place) %>:</h4>
-        <blockquote>
-          <% if comment.rating.present? %>
-            <% comment.rating.chr.to_i.times do %>
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <% end %>
-            <% (5 - comment.rating.chr.to_i).times do %>
-              <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-            <% end %>
-            <br />
-          <% end %>
-          <%= comment.message %>
-        </blockquote>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render(@user.comments.reverse, show_user: false, show_place: true) || "This user has not reviewed any places." %>
 </div>
+
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2>My Places</h2>
   <hr />
-  <% if @user.places.present? %>
-    <% @user.places.each do |place| %>
-      <div class="row item-row">
-        <% if place.photos.present? %>
-          <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
-            <a href="<%= place_path(place) %>">
-              <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail list-photo img-responsive" %>
-            </a>
-          </div>
-          <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
-        <% else %>
-          <div class="col-xs-12">
-        <% end %>
-            <h1><%= link_to place.name, place_path(place) %></h1><br />
-            <i><%= place.address %></i><br /><br />
-            <p><%= place.description %></p>
-            <% if place.comments.present? %>
-                  <blockquote>
-                    <% if place.comments.last.rating.present? %>
-                      <% place.comments.last.rating.chr.to_i.times do %>
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                      <% end %>
-                      <% (5 - place.comments.last.rating.chr.to_i).times do %>
-                        <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                      <% end %>
-                      <br />
-                    <% end %>
-                    <%= place.comments.last.message %>
-                    <small><%= place.comments.last.user.email %></small>
-                  </blockquote>
-            <% end %>
-          </div>
-      </div>
-      <hr />
-    <% end %>
-  <% end %>
+  <%= render(partial: @user.places.reverse, spacer_template: 'layouts/hr_list') || "This user has not added any places." %>
 </div>

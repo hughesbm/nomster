@@ -1,40 +1,4 @@
-<div id="nomster-carousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#nomster-carousel" data-slide-to="0" class="active"></li>
-    <li data-target="#nomster-carousel" data-slide-to="1"></li>
-    <li data-target="#nomster-carousel" data-slide-to="2"></li>
-    <li data-target="#nomster-carousel" data-slide-to="3"></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <%= image_tag 'slider1.jpg', class: 'img-responsive' %>
-      <div class="carousel-caption">
-        Find the best food in Alameda.
-      </div>
-    </div>
-    <div class="item">
-      <%= image_tag 'slider2.jpg', class: 'img-responsive' %>
-      <div class="carousel-caption">
-        Have a great meal, then take in a movie at the historic Alameda Theatre.
-      </div>
-    </div>
-    <div class="item">
-      <%= image_tag 'slider3.jpg', class: 'img-responsive' %>
-      <div class="carousel-caption">
-        Spend a fortune on a silly house on the bay, then eat somewhere, I guess.
-      </div>
-    </div>
-    <div class="item">
-      <%= image_tag 'slider4.jpg', class: 'img-responsive' %>
-      <div class="carousel-caption">
-        Tour the USS Hornet and then eat. Or vice versa. Whatever.
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'carousel' %>
 
 <% unless flash.blank? %>
    <% flash.each do |type, message| %>
@@ -45,42 +9,10 @@
    <% end %>
 <% end %>
 
-<% @places.each do |place| %>
-  <div class="booyah-box col-xs-10 col-xs-offset-1">
-    <div class="row item-row">
-      <% if place.photos.present? %>
-        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
-          <a href="<%= place_path(place) %>">
-            <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail list-photo img-responsive" %>
-          </a>
-        </div>
-        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
-      <% else %>
-        <div class="col-xs-12">
-      <% end %>
-          <h1><%= link_to place.name, place_path(place) %></h1><br />
-          <i><%= place.address %></i><br /><br />
-          <p><%= place.description %></p>
-          <% if place.comments.present? %>
-                <blockquote>
-                  <% if place.comments.last.rating.present? %>
-                    <% place.comments.last.rating.chr.to_i.times do %>
-                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <% end %>
-                    <% (5 - place.comments.last.rating.chr.to_i).times do %>
-                      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                    <% end %>
-                    <br />
-                  <% end %>
-                  <%= place.comments.last.message %>
-                  <small><%= link_to place.comments.last.user.email, user_path(place.comments.last.user) %></small>
-                </blockquote>
-          <% end %>
-        </div>
-    </div>
-  </div>
-<% end %>
+<%= render partial: @places, layout: 'layouts/booyah' %>
+
 <br class="clear" />
+
 <div class="text-center">
   <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
 </div>

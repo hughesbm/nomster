@@ -1,0 +1,8 @@
+<p>
+  There are no <%= item %>s for this place yet!
+  <% if user_signed_in? %>
+  <a href="#<%= item %>Modal" data-toggle="modal">Add your own <%= item %>.</a>
+  <% else %>
+    <%= link_to 'Sign in', new_user_session_path %> and add your own <%= item %>.
+  <% end %>
+</p>

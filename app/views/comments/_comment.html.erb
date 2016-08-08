@@ -1,0 +1,15 @@
+<div class="col-xs-12 col-sm-6">
+  <% if show_place %>
+    <h4><%= link_to comment.place.name, place_path(comment.place) %>:</h4>
+  <% end %>
+  <blockquote>
+    <% if comment.rating.present? %>
+      <%= render 'star_rating', rating: comment.rating.chr.to_i %>
+      <br />
+    <% end %>
+    <%= comment.message %>
+    <% if show_user %>
+      <small><%= link_to comment.user.email, user_path(comment.user) %></small>
+    <% end %>
+  </blockquote>
+</div>

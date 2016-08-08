@@ -1,0 +1,31 @@
+<div class="row item-row">
+  <% if place.photos.present? %>
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <a href="<%= place_path(place) %>">
+        <%= image_tag place.photos.first.picture_url(:thumb), class: "thumbnail list-photo img-responsive" %>
+      </a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+  <% else %>
+    <div class="col-xs-12">
+  <% end %>
+      <h1><%= link_to place.name, place_path(place) %></h1><br />
+      <% if place.avg_rating.present? %>
+        <h4>
+          <%= render 'star_rating', rating: place.avg_rating %>
+          (<%= place.comments.count %> reviews)
+        </h4>
+        <br />
+      <% end %>
+      <i><%= place.address %></i><br /><br />
+      <p><%= place.description %></p>
+      <% if place.comments.present? %>
+          <blockquote>
+            <%= render 'star_rating', rating: place.comments.first.rating.chr.to_i %>
+            <br />
+            <%= place.comments.first.message %>
+            <small><%= link_to place.comments.first.user.email, user_path(place.comments.first.user) %></small>
+          </blockquote>
+      <% end %>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#<%= item_type %>Modal">
+  Add a <%= item_type.capitalize %>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="<%= item_type %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= item_type %>ModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="<%= item_type %>ModalLabel">Add a Photo</h4>
+      </div>
+      <% if item_type == 'photo' %>
+        <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+          <div class="modal-body">
+            <%= f.input :picture %>
+            <br />
+            <%= f.input :caption %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit 'Submit Photo', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      <% elsif item_type == 'review' %>
+        <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+          <div class="modal-body">
+            <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
+            <br />
+            <%= f.input :message %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= f.submit 'Submit Review', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

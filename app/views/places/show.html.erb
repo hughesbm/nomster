@@ -10,39 +10,31 @@
     </div>
   <% end %>
 <% end %>
+
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h1><%= @place.name %></h1>
   <br />
+
+  <% if @place.avg_rating.present? %>
+    <h4>
+      <%= render 'star_rating', rating: @place.avg_rating %>
+      (<%= @place.comments.count %> reviews)
+    </h4>
+    <br />
+  <% end %>
+
   <i><%= @place.address %></i>
   <br /><br />
   <p><%= @place.description %></p>
+  </br />
   <% if @place.latitude.present? && @place.longitude.present? %>
-    </br />
-    <script>
-
-      function initMap() {
-        var myLatLng = {lat: <%= @place.latitude %>, lng: <%= @place.longitude %>};
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13,
-          center: myLatLng
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
-        });
-      }
-    </script>
-
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpdYH6MYNxbaIrV6Vky7_hIcGLlxphAvo&callback=initMap">
-    </script>
-
-    <div id="map"></div>
+    <%= render 'map', place: @place %>
+    <br />
   <% end %>
-  <br />
+
+  <div class="pull-left">
+    <i>Place added by <%= link_to @place.user.email, user_path(@place.user) %></i>
+  </div>
   <% if current_user && current_user == @place.user %>
     <div class="pull-right">
       <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-info' %>
@@ -53,155 +45,30 @@
 
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2 class="pull-left">Photos</h2>
+
   <% if current_user %>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#photoModal">
-      Add a Photo
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="photoModalLabel">Add a Photo</h4>
-          </div>
-          <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
-            <div class="modal-body">
-              <%= f.input :picture %>
-              <br />
-              <%= f.input :caption %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <%= f.submit 'Submit Photo', class: 'btn btn-primary' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
+    <%= render 'add_place_item', item_type: 'photo' %>
   <% else %>
-      <%= link_to 'Sign in to add Photos', new_user_session_path, class: 'btn btn-primary pull-right' %>
+    <%= link_to 'Sign in to add Photos', new_user_session_path, class: 'btn btn-primary pull-right' %>
   <% end %>
 
   <br class="clear" />
   <hr />
 
-  <% if @place.photos.count > 0 %>
-    <div class="row">
-      <% @place.photos.each do |photo| %>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-
-          <!-- Button trigger modal -->
-          <div class="thumbnail">
-            <a data-toggle="modal" href="#photoModal<%= photo.id %>">
-              <%= image_tag photo.picture_url(:thumb) %>
-            </a>
-            <div class="caption">
-              <h5 class="text-center"><%= photo.caption %></h5>
-            </div>
-          </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="photoModal<%= photo.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="photoModalLabel<%= photo.id %>"><%= photo.caption %></h4>
-                </div>
-                <div class="modal-body">
-                  <%= image_tag photo.picture, class:'modal-photo center-block' %>
-                  <br /><br />
-                  <p>Photo added by <%= photo.user.email %></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <p>
-      No one has added a photo for this place yet!
-      <% if user_signed_in? %>
-      <a href="#photoModal" data-toggle="modal">Add your own photo.</a>
-      <% else %>
-        <%= link_to 'Sign in', new_user_session_path %> and add your own photo.
-      <% end %>
-    </p>
-  <% end %>
+  <%= render(@place.photos) || render('empty_list', item: 'photo') %>
 </div>
 
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <h2 class="pull-left">Reviews</h2>
+
   <% if current_user %>
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#reviewModal">
-      Add a Review
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="myReviewLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myReviewLabel">Add a Review</h4>
-          </div>
-          <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
-            <div class="modal-body">
-              <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
-              <br />
-              <%= f.input :message %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <%= f.submit 'Submit Review', class: 'btn btn-primary' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
+    <%= render 'add_place_item', item_type: 'review' %>
   <% else %>
-      <%= link_to 'Sign in to Review', new_user_session_path, class: 'btn btn-primary pull-right' %>
+    <%= link_to 'Sign in to Review', new_user_session_path, class: 'btn btn-primary pull-right' %>
   <% end %>
 
   <br class="clear" />
   <hr />
 
-  <% if @place.comments.count > 0 %>
-    <% @place.comments.each do |comment| %>
-      <div class="col-xs-12 col-sm-6">
-        <blockquote>
-          <% if comment.rating.present? %>
-            <% comment.rating.chr.to_i.times do %>
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-            <% end %>
-            <% (5 - comment.rating.chr.to_i).times do %>
-              <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-            <% end %>
-            <br />
-          <% end %>
-          <%= comment.message %>
-          <small><%= link_to comment.user.email, user_path(comment.user) %></small>
-        </blockquote>
-      </div>
-    <% end %>
-  <% else %>
-    <p>
-      No one has reviewed this place yet!
-      <% if user_signed_in? %>
-      <a href="#reviewModal" data-toggle="modal">Add your own review.</a>
-      <% else %>
-        <%= link_to 'Sign in', new_user_session_path %> and add your own review.
-      <% end %>
-    </p>
-  <% end %>
+  <%= render(@place.comments, show_user: true, show_place: false) || render('empty_list', item: 'review') %>
 </div>

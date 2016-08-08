@@ -16,4 +16,13 @@ class Place < ActiveRecord::Base
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
   end
+
+  def update_avg_rating
+    @total = 0
+    @count = self.comments.size
+    self.comments.each do |comment|
+      @total += comment.rating.chr.to_i
+    end
+    update_attributes(avg_rating: (@total.to_f / @count.to_f).to_i)
+  end
 end

@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :place
   after_create :send_comment_email
+  after_save :update_place_avg_rating
 
   validates :rating, presence: true
   validates :message, presence: true, length: { minimum: 10, maximum: 500 }
@@ -20,5 +21,9 @@ class Comment < ActiveRecord::Base
 
   def send_comment_email
     NotificationMailer.comment_added(self).deliver
+  end
+
+  def update_place_avg_rating
+    place.update_avg_rating
   end
 end
