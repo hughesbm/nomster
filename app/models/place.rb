@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   belongs_to :user
   has_many :comments

@@ -2,9 +2,9 @@
   <div class="row item-row">
     <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
       <% if @user.avatar.present? %>
-        <%= image_tag @user.avatar_url(:thumb), class: 'img-responsive' %>
+        <%= image_tag @user.avatar_url(:thumb), class: 'list-photo img-responsive' %>
       <% else %>
-        <%= image_tag 'user.png', class: 'img-responsive' %>
+        <%= image_tag 'user.png', class: 'list-photo img-responsive' %>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
