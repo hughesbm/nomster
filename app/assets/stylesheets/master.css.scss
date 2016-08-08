@@ -63,6 +63,11 @@ br.clear {
 
 //Text styles
 
+a:hover {
+  text-decoration: none;
+  color: #1ABC9C;
+}
+
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
