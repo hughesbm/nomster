@@ -12,7 +12,7 @@
     <div class="item active">
       <%= image_tag 'slider1.jpg', class: 'img-responsive' %>
       <div class="carousel-caption">
-        Find the best food after a relaxing day at the beach.
+        Find the best food in Alameda.
       </div>
     </div>
     <div class="item">
@@ -46,6 +46,15 @@
   </a>
 </div>
 
+<% unless flash.blank? %>
+   <% flash.each do |type, message| %>
+      <div class="col-xs-10 col-xs-offset-1 alert <%= flash_class(type.to_s) %> alert-dismissable index-alert" role="alert">
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= message %>
+      </div>
+   <% end %>
+<% end %>
+
 <% @places.each do |place| %>
   <div class="booyah-box col-xs-10 col-xs-offset-1">
     <div class="row item-row">
@@ -74,7 +83,7 @@
                     <br />
                   <% end %>
                   <%= place.comments.last.message %>
-                  <small><%= place.comments.last.user.email %></small>
+                  <small><%= link_to place.comments.last.user.email, user_path(place.comments.last.user) %></small>
                 </blockquote>
           <% end %>
         </div>

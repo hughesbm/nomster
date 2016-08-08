@@ -67,3 +67,6 @@ gem 'fog'
 
 # RMagick
 gem 'rmagick'
+
+# Use friendly_id gem for vanity URLS
+gem 'friendly_id', '~> 5.1.0'

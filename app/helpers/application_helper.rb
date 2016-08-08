@@ -15,4 +15,8 @@ module ApplicationHelper
     end
   end
 
+  def move_flash_messages?
+    params[:controller] == "places" && params[:action] == "index"
+  end
+
 end
