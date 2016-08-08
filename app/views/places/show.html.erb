@@ -20,8 +20,10 @@
       <%= render 'star_rating', rating: @place.avg_rating %>
       (<%= @place.comments.count %> reviews)
     </h4>
-    <br />
+  <% else %>
+    <h4>No reviews yet! :(</h4>
   <% end %>
+  <br />
 
   <i><%= @place.address %></i>
   <br /><br />
