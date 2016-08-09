@@ -3,8 +3,8 @@ class Place < ActiveRecord::Base
   friendly_id :name, use: [:slugged, :finders, :history]
 
   belongs_to :user
-  has_many :comments
-  has_many :photos
+  has_many :comments, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   geocoded_by :address
   after_validation :geocode
